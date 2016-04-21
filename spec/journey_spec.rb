@@ -1,12 +1,29 @@
-require 'oystercard'
 require 'journey'
+
 
 describe Journey do
 
-it 'should have a starting station' do
-  journey = Journey.new(:station)
-  expect(journey.entry).to eq(:station)
-end
+  subject(:journey) {described_class.new(:station)}
+
+  it 'should have a starting station' do
+    expect(journey.entry).to eq(:station)
+  end
+
+  describe '#finish' do
+
+    before(:each) do
+      journey.finish(:station)
+    end
+
+    it 'sets the exit station' do
+      expect(journey.exit).to eq (:station)
+    end
+
+    it 'marks the journey as complete' do
+      expect(journey).to be_complete
+    end
+
+  end
 
 end
 
