@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class Oystercard
   MAXIMUM_BALANCE = 90
   MINIMUM_FARE = 1
@@ -15,10 +17,10 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in(station)
+  def touch_in(journey =Journey.new(station = nil))
     message = "Cannot touch in: not enough money for minimum fare of #{MINIMUM_FARE}"
     raise message if balance < MINIMUM_FARE
-    @entry_station = station
+    @journeys << journey
   end
 
   def touch_out(station)
@@ -32,10 +34,10 @@ class Oystercard
     @entry_station
   end
 
-private
+  private
 
-def deduct(amount)
-  @balance -= amount
-end
+  def deduct(amount)
+    @balance -= amount
+  end
 
 end
