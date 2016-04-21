@@ -6,7 +6,7 @@ describe Journey do
   subject(:journey) {described_class.new(:station)}
 
   it 'should have a starting station' do
-    expect(journey.entry).to eq(:station)
+    expect(journey.entry_station).to eq(:station)
   end
 
   describe '#finish' do
@@ -16,7 +16,7 @@ describe Journey do
     end
 
     it 'sets the exit station' do
-      expect(journey.exit).to eq (:station)
+      expect(journey.exit_station).to eq (:station)
     end
 
     it 'marks the journey as complete' do
@@ -25,14 +25,37 @@ describe Journey do
 
   end
 
+  describe '#abnormal' do
+
+    it 'returns true if entry station is nil' do
+      journey = Journey.new(nil)
+      journey.finish(:station)
+      expect(journey).to be_abnormal
+    end
+
+    xit 'returns true if exit station is nil' do
+    end
+
+    xit 'returns false if neither entry nor exit station is nil' do
+    end
+  end
+
+  describe '#fare' do
+
+    xit 'calculates the fare for normal journeys' do
+    end
+    #if (journey.normal?.eq true) fare = fare
+
+    xit 'levies a penalty if journey is abnormal' do
+    #if (journey.normal?.eq false) fare = PENALTY
+    end
+  end
 end
 
 
 
 
-#finishing a journey, calculating the fare of a journey, and returning whether or not the journey is complete.
-
-
+# calculating the fare of a journey
 
 
 # retain touch_in and touch_out on oystercard
