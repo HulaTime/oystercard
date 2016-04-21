@@ -1,4 +1,6 @@
 class Journey
+  PENALTY = 6
+  MINIMUM_FARE = 1
 
   attr_reader :entry_station, :exit_station, :complete
   alias :complete? :complete
@@ -15,9 +17,13 @@ class Journey
   end
 
   def abnormal?
-    !!entry_station || !!exit_station
+    !entry_station || !exit_station
   end
 
+  def fare
+    return MINIMUM_FARE unless abnormal?
+    PENALTY
+  end
 
 end
 

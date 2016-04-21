@@ -25,6 +25,7 @@ describe Journey do
 
   end
 
+  #Maybe deleted because abnormal? may be made private
   describe '#abnormal' do
 
     it 'returns true if entry station is nil' do
@@ -33,20 +34,29 @@ describe Journey do
       expect(journey).to be_abnormal
     end
 
-    xit 'returns true if exit station is nil' do
+    it 'returns true if exit station is nil' do
+      journey.finish(nil)
+      expect(journey).to be_abnormal
     end
 
-    xit 'returns false if neither entry nor exit station is nil' do
+    it 'returns false if neither entry nor exit station is nil' do
+      journey.finish(:station)
+      expect(journey).not_to be_abnormal
     end
+
   end
 
   describe '#fare' do
 
-    xit 'calculates the fare for normal journeys' do
+    it 'calculates the fare for normal journeys' do
+      journey.finish(:station)
+      expect(journey.fare).to eq Journey::MINIMUM_FARE
     end
     #if (journey.normal?.eq true) fare = fare
 
-    xit 'levies a penalty if journey is abnormal' do
+    it 'levies a penalty if journey is abnormal' do
+      journey.finish(nil)
+      expect(journey.fare).to eq Journey::PENALTY
     #if (journey.normal?.eq false) fare = PENALTY
     end
   end
