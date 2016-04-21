@@ -24,14 +24,8 @@ class Oystercard
   end
 
   def touch_out(station)
-    deduct(MINIMUM_FARE)
-    journey = {@entry_station => station}
-    @journeys << journey
-    @entry_station = nil
-  end
-
-  def in_journey?
-    @entry_station
+    journeys.last.finish(station)
+    deduct(journeys.last.fare)
   end
 
   private
