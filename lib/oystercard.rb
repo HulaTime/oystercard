@@ -19,9 +19,7 @@ class Oystercard
 
   def touch_in(journey =Journey.new(station = nil))
     raise "Cannot touch in: not enough money for minimum fare of #{MINIMUM_FARE}" if balance < MINIMUM_FARE
-    if journeys.empty? == false
-      deduct(journeys.last.fare) if journeys.last.abnormal?
-    end
+    journey_check(journeys.last)
     @journeys << journey
   end
 
@@ -31,6 +29,12 @@ class Oystercard
   end
 
   private
+  
+  def journey_check(journey)
+    if !journey.nil?
+      deduct(journeys.last.fare) if journeys.last.abnormal?
+    end
+  end
 
   def deduct(amount)
     @balance -= amount

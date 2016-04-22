@@ -5,6 +5,8 @@ describe Oystercard do
   subject(:oystercard) { described_class.new }
   let(:station) { double :station }
   let(:journey) { spy :journey }
+  let(:journey2) { double(:journey2, fare: 6, abnormal?: true) }
+
 
   context "when initialized" do
     it "has a balance equals to 0" do
@@ -44,8 +46,8 @@ describe Oystercard do
 
     it "levies a penalty fare if previous journey abnormal" do
       oystercard.top_up(30)
-      oystercard.touch_in(Journey.new station)
-      expect{oystercard.touch_in(Journey.new station)}.to change{oystercard.balance}.by (-6)
+      oystercard.touch_in(journey2)
+      expect{oystercard.touch_in(journey2)}.to change{oystercard.balance}.by (-6)
 	  end
   end
 
