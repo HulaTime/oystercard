@@ -1,4 +1,5 @@
 require 'oystercard'
+require 'journey'
 
 describe Oystercard do
   subject(:oystercard) { described_class.new }
@@ -40,7 +41,13 @@ describe Oystercard do
       oystercard.touch_in(journey)
       expect(oystercard.journeys).to include journey
     end
-	end
+
+    it "levies a penalty fare if previous journey abnormal" do
+      oystercard.top_up(30)
+      oystercard.touch_in(Journey.new station)
+      expect{oystercard.touch_in(Journey.new station)}.to change{oystercard.balance}.by (-6)
+	  end
+  end
 
 	describe "#touch_out" do
 

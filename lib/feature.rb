@@ -1,6 +1,6 @@
 require './lib/oystercard'
-require_relative './lib/journey'
-require_relative './lib/station'
+require './lib/journey'
+require './lib/station'
 
 oystercard = Oystercard.new
 oystercard.top_up(10)
