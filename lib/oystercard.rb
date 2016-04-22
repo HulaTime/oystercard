@@ -9,7 +9,7 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @journeys = []
+    @journeys = [Journey.new('dummy').finish('dummy')]
   end
 
   def top_up(amount)
@@ -24,6 +24,7 @@ class Oystercard
   end
 
   def touch_out(station)
+    journeys << Journey.new(nil) if journeys.last.complete
     journeys.last.finish(station)
     deduct(journeys.last.fare)
   end
